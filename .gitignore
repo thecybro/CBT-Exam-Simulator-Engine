@@ -1,3 +1,6 @@
 params/
 questions.yaml
 questions_backups/
+backups/
+__pycache__
+*.log

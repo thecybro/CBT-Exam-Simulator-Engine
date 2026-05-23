@@ -1,0 +1,25 @@
+- id: 4567
+  subject: "physics"
+  topic: "mechanics_units_and_dimensions"
+  difficulty: 1
+  question: |
+    Which of the following pairs of physical quantities has the same dimensional formula?
+  options:
+    - "Work and Power"
+    - "Stress and Strain"
+    - "Momentum and Impulse"
+    - "Torque and Angular Momentum"
+  correct_index: 2
+
+- id: 2
+  subject: "physics"
+  topic: "mechanics_vectors"
+  difficulty: 2
+  question: |
+    Two vectors of equal magnitude P have a resultant also equal to P. The angle between the two vectors is:
+  options:
+    - "60°"
+    - "90°"
+    - "120°"
+    - "180°"
+  correct_index: 2
