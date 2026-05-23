@@ -40,8 +40,11 @@ def run(question_file):
             elif SUBJECT_IDS["maths"][0] <= question.get("id") <= SUBJECT_IDS["maths"][1]:
                 state.maths_questions.append(question)
 
+        print(f"Loaded amount of questions:-\nPhysics: {len(state.physics_questions)}\nChemistry:{len(state.chemistry_questions)}\nMaths: {len(state.maths_questions)}")
+
         while True:
             choice = input("First, choose one subject to continue:\n1. Physics\n2. Chemistry\n3. Maths\n").strip()
+            logger.info("First, choose one subject to continue:\n1. Physics\n2. Chemistry\n3. Maths\n")
 
             try:
                 val = int(choice)
@@ -63,12 +66,15 @@ def run(question_file):
 
         while True:
             if choice in [1, NORMALIZED_SUBJECT[1]]: # Physics
+                print("You selected physics!")
+                logger.info("You selected physics!")
+
                 print(f"Score: {score}")
                 logger.info(f"Score: {score}")
                 for question in state.physics_questions:
                     question_difficulty = question.get("difficulty")
 
-                    if question_difficulty == physics_level and question not in [state.finished_questions["right"], state.finished_questions["wrong"]]:
+                    if question_difficulty == physics_level and question not in [state.finished_physics_questions["right"], state.finished_physics_questions["wrong"]]:
                         physics_questions_solved_count = len(finished_physics_questions["right"]) + len(finished_physics_questions["wrong"])
                         logger.info(f"\n{physics_questions_solved_count+1}. {question.get("question")}")
                         print(f"\n{physics_questions_solved_count+1}. {question.get("question")}")
@@ -88,7 +94,7 @@ def run(question_file):
                                 print("Correct Answer")
                                 logger.info("Correct Answer")
                                 score += SCORE_PER_LEVEL[question_difficulty]
-                                state.finished_questions["right"] = question
+                                state.finished_physics_questions["right"] = question
 
                                 print(f"Score: {score}")
                                 logger.info(f"Score: {score}")
@@ -105,7 +111,7 @@ def run(question_file):
                             else:
                                 logger.error("Wrong answer!")
                                 print("Wrong answer!")
-                                state.finished_questions["wrong"] = question
+                                state.finished_physics_questions["wrong"] = question
                                 if 1 < physics_level <= 5:
                                     physics_level -= 1
                                     print(f"New level: {physics_level}")
@@ -120,7 +126,7 @@ def run(question_file):
                                 print("Correct Answer!")
                                 logger.info("Correct Answer!")
                                 score += SCORE_PER_LEVEL[question_difficulty]
-                                state.finished_questions["right"] = question
+                                state.finished_physics_questions["right"] = question
 
                                 print(f"Score: {score}")
                                 logger.info(f"Score: {score}")
@@ -137,7 +143,7 @@ def run(question_file):
                             else:
                                 logger.error("Wrong answer!")
                                 print("Wrong answer!")
-                                state.finished_questions["wrong"] = question
+                                state.finished_physics_questions["wrong"] = question
 
                                 if 1 < physics_level <= 5:
                                     physics_level -= 1
@@ -149,6 +155,7 @@ def run(question_file):
                                     print("Lowest level reached!")
 
                         choice = input("Choose anyone subject to change\nPress enter to continue with current subject:\n").strip()
+                        logger.info("Choose anyone subject to change\nPress enter to continue with current subject:\n")
 
                     if choice in [1, NORMALIZED_SUBJECT[1], "", None]:
                         continue
@@ -167,10 +174,10 @@ def run(question_file):
                 for question in state.chemistry_questions:
                     question_difficulty = question.get("difficulty")
 
-                    if question_difficulty == chemistry_level and question not in [state.finished_questions["right"], state.finished_questions["wrong"]]:
-                        chemistry_questions_solved_count = len(finished_chemistry_questions)
-                        print(f"\n{chemistry_questions_solved_count+1}. {question.get("question")}")
-                        logger.info(f"\n{chemistry_questions_solved_count+1}. {question.get("question")}")
+                    if question_difficulty == chemistry_level and question not in [state.finished_chemistry_questions["right"], state.finished_chemistry_questions["wrong"]]:
+                        finished_chemistry_questions_count = len(finished_chemistry_questions)
+                        print(f"\n{finished_chemistry_questions_count+1}. {question.get("question")}")
+                        logger.info(f"\n{finished_chemistry_questions_count+1}. {question.get("question")}")
 
                         options = question.get("options")
 
@@ -187,7 +194,7 @@ def run(question_file):
                                 print("Correct Answer")
                                 logger.info("Correct Answer")
                                 score += SCORE_PER_LEVEL[question_difficulty]
-                                state.finished_questions["right"] = question
+                                state.finished_chemistry_questions["right"] = question
 
                                 print(f"Score: {score}")
                                 logger.info(f"Score: {score}")
@@ -204,7 +211,7 @@ def run(question_file):
                             else:
                                 logger.error("Wrong answer!")
                                 print("Wrong answer!")
-                                state.finished_questions["wrong"] = question
+                                state.finished_chemistry_questions["wrong"] = question
                                 if 1 < chemistry_level <= 5:
                                     chemistry_level -= 1
                                     print(f"New level: {chemistry_level}")
@@ -219,7 +226,7 @@ def run(question_file):
                                 print("Correct Answer!")
                                 logger.info("Correct Answer!")
                                 score += SCORE_PER_LEVEL[question_difficulty]
-                                state.finished_questions["right"] = question
+                                state.finished_chemistry_questions["right"] = question
 
                                 print(f"Score: {score}")
                                 logger.info(f"Score: {score}")
@@ -236,7 +243,7 @@ def run(question_file):
                             else:
                                 logger.error("Wrong answer!")
                                 print("Wrong answer!")
-                                state.finished_questions["wrong"] = question
+                                state.finished_chemistry_questions["wrong"] = question
 
                                 if 1 < chemistry_level <= 5:
                                     chemistry_level -= 1
@@ -248,6 +255,7 @@ def run(question_file):
                                     print("Lowest level reached!")
 
                         choice = input("Choose anyone subject to change\nPress enter to continue with current subject:\n").strip()
+                        logger.info("Choose anyone subject to change\nPress enter to continue with current subject:\n")
 
                     if choice in [2, NORMALIZED_SUBJECT[2], "", None]:
                         continue
@@ -263,13 +271,13 @@ def run(question_file):
                 print(f"Score: {score}")
                 logger.info(f"Score: {score}")
 
-                for question in state.maths_questions:
+                for question in state.maths_questions:                    
                     question_difficulty = question.get("difficulty")
 
-                    if question_difficulty == maths_level and question not in [state.finished_questions["right"], state.finished_questions["wrong"]]:
-                        maths_questions_solved_count = len(finished_maths_questions)
-                        print(f"\n{maths_questions_solved_count+1}. {question.get("question")}")
-                        logger.info(f"\n{maths_questions_solved_count+1}. {question.get("question")}")
+                    if question_difficulty == maths_level and question not in [state.finished_maths_questions["right"], state.finished_maths_questions["wrong"]]:
+                        finished_maths_questions_count = len(finished_maths_questions)
+                        print(f"\n{finished_maths_questions_count+1}. {question.get("question")}")
+                        logger.info(f"\n{finished_maths_questions_count+1}. {question.get("question")}")
 
                         options = question.get("options")
 
@@ -286,7 +294,7 @@ def run(question_file):
                                 print("Correct Answer")
                                 logger.info("Correct Answer")
                                 score += SCORE_PER_LEVEL[question_difficulty]
-                                state.finished_questions["right"] = question
+                                state.finished_maths_questions["right"] = question
 
                                 print(f"Score: {score}")
                                 logger.info(f"Score: {score}")
@@ -303,7 +311,7 @@ def run(question_file):
                             else:
                                 logger.warning("Wrong answer!")
                                 print("Wrong answer!")
-                                state.finished_questions["wrong"] = question
+                                state.finished_maths_questions["wrong"] = question
                                 if 1 < maths_level <= 5:
                                     maths_level -= 1
                                     print(f"New level: {maths_level}")
@@ -318,7 +326,7 @@ def run(question_file):
                                 print("Correct Answer!")
                                 logger.info("Correct Answer!")
                                 score += SCORE_PER_LEVEL[question_difficulty]
-                                state.finished_questions["right"] = question
+                                state.finished_maths_questions["right"] = question
 
                                 print(f"Score: {score}")
                                 logger.info(f"Score: {score}")
@@ -335,7 +343,7 @@ def run(question_file):
                             else:
                                 print("Wrong answer!")
                                 logger.error("Wrong answer!")
-                                state.finished_questions["wrong"] = question
+                                state.finished_maths_questions["wrong"] = question
 
                                 if 1 < maths_level <= 5:
                                     maths_level -= 1
@@ -347,6 +355,7 @@ def run(question_file):
                                     logger.warning("Lowest level reached!")
 
                         choice = input("Choose anyone subject to change\nPress enter to continue with current subject:\n").strip()
+                        logger.info("Choose anyone subject to change\nPress enter to continue with current subject:\n")
 
                     if choice in [3, NORMALIZED_SUBJECT[3], "", None]:
                         continue
@@ -355,8 +364,10 @@ def run(question_file):
                         break
         
 
-            # else:
-            #     choice = input("\nChoose one subject to continue:\n1. Physics\n2. Chemistry\n3. Maths\n").strip()
+            else:
+                choice = input("\nChoose one subject to continue:\n1. Physics\n2. Chemistry\n3. Maths\n").strip()
+                logger.info("First, choose one subject to continue:\n1. Physics\n2. Chemistry\n3. Maths\n")
+
 
 run("questions.yaml")
 
